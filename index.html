@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>| 2026 Bible Project | - Nancy Hsu</title>
+    <title>| Bible Project | - Nancy Hsu</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Dancing+Script:wght@500&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* === 🎨 顏色設定 (V33) === */
-            
-            /* Body 背景：清透奶油黃 */
+            /* === 🎨 顏色設定 === */
             --bg-base: #fffbf0;       
-            /* 點點顏色 */
             --dot-color: #e6dcb8;     
-            
-            /* Header 背景：奶茶色 */
             --header-bg: #eddfd2;     
-            
             --primary: #5d4037;       
             
             --color-ot: #a1887f;      
@@ -33,33 +27,26 @@
             --date-bg: #eceff1;        
             --color-rest: #607d8b;     
             
-            /* 行背景回歸淡拿鐵色 */
             --item-checked-bg: #f2ece4;  
             --item-checked-border: #e0d4c6; 
-
-            /* 🆕 圓圈圈實心暖黃色 (修正版：更黃、不橘) */
             --checkbox-solid-bg: #ffd230;
         }
 
         body { 
             font-family: 'Klee One', 'Noto Sans TC', sans-serif; 
-            
             margin: 0; padding: 0; color: var(--primary); padding-bottom: 80px;
-            /* 清透奶油黃背景 + 點點 */
             background-color: var(--bg-base);
             background-image: radial-gradient(var(--dot-color) 2px, transparent 2px);
             background-size: 24px 24px; 
             letter-spacing: 0.5px;
         }
         
-        /* === Header === */
         header { 
             background-color: var(--header-bg);
             background-image: 
                 linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), 
                 linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px);
             background-size: 20px 20px;
-            
             padding: 15px 20px; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
             position: sticky; top: 0; z-index: 1000; 
@@ -67,149 +54,106 @@
         }
 
         .header-content {
-            max-width: 650px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center; 
-            flex-wrap: nowrap;   
-            gap: 15px;            
+            max-width: 650px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; 
+            flex-wrap: nowrap; gap: 15px;            
         }
 
-        .header-left {
-            text-align: left;
-            flex: 1;          
-            min-width: 0;     
-        }
+        .header-left { flex: 1; min-width: 0; }
 
-        /* 主標題 */
         .main-title {
             font-family: 'Cormorant Garamond', serif; 
-            font-size: 1.5em; 
-            font-weight: 700; 
-            color: #5d4037; 
-            letter-spacing: 0.5px;
-            line-height: 1;
-            text-transform: uppercase;
-            /* 標題底框 */
+            font-size: 1.5em; font-weight: 700; color: #5d4037; 
+            line-height: 1; text-transform: uppercase;
             background: rgba(255,255,255,0.85); 
-            padding: 3px 6px;
-            display: inline-block;
-            border-radius: 4px;
+            padding: 3px 6px; display: inline-block; border-radius: 4px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .signature {
-            display: block; 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 1.1em; 
-            color: #8d6e63;
-            margin-top: 2px; 
-            margin-left: 5px;
+            display: block; font-family: 'Dancing Script', cursive; 
+            font-size: 1.1em; color: #8d6e63; margin-top: 2px; margin-left: 5px;
         }
 
-        .subtitle {
-            font-family: 'Playfair Display', serif; 
-            font-style: italic; 
-            font-size: 0.8em; 
-            color: #8d6e63;
-            margin-top: 6px;
-            display: block;
-            line-height: 1.3;
-            white-space: normal; 
-            text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+        /* 日期選擇器樣式 */
+        .date-picker-area {
+            margin-top: 8px; font-size: 0.85em; color: #8d6e63;
+            display: flex; align-items: center; gap: 5px;
+        }
+        input[type="date"] {
+            border: 1px solid #d7ccc8; background: rgba(255,255,255,0.6);
+            border-radius: 4px; padding: 2px 5px; color: #5d4037;
+            font-family: 'Cormorant Garamond', sans-serif; font-weight: bold;
         }
 
-        /* === 右側：進度條 === */
         .progress-compact {
-            background: #ffffff; 
-            padding: 8px 10px;
-            border-radius: 10px;
-            border: 1px solid #efebe9;
-            text-align: center;
-            min-width: 75px; 
-            flex-shrink: 0; 
+            background: #ffffff; padding: 8px 10px;
+            border-radius: 10px; border: 1px solid #efebe9;
+            text-align: center; min-width: 75px; flex-shrink: 0; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .progress-title { 
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.7em; 
-            color: #bcaaa4; 
-            font-weight: 700; 
-            letter-spacing: 1px;
-            margin-bottom: 3px;
+            font-family: 'Cormorant Garamond', serif; font-size: 0.7em; 
+            color: #bcaaa4; font-weight: 700; letter-spacing: 1px; margin-bottom: 3px;
             text-transform: uppercase;
         }
         
         .progress-percent { 
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5em; 
-            font-weight: 700; 
-            color: var(--color-ot); 
-            line-height: 1;
-            display: block;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.5em; 
+            font-weight: 700; color: var(--color-ot); line-height: 1; display: block;
         }
         .bar-bg { 
-            width: 100%; height: 6px; 
-            background: #efebe9; border-radius: 3px; 
+            width: 100%; height: 6px; background: #efebe9; border-radius: 3px; 
             overflow: hidden; margin-top: 4px; 
         }
         .bar-fill { 
-            height: 100%; background: var(--color-ot); 
-            width: 0%; transition: width 0.5s ease; border-radius: 3px; 
+            height: 100%; background: var(--color-ot); width: 0%; 
+            transition: width 0.5s ease; border-radius: 3px; 
         }
 
-        .container { max-width: 600px; margin: 0 auto; padding: 15px 20px; display: block; }
+        .container { max-width: 600px; margin: 0 auto; padding: 15px 20px; }
 
         .month-header {
-            margin: 25px auto 12px auto; 
-            padding: 5px 20px; 
+            margin: 25px auto 12px auto; padding: 5px 20px; 
             background: var(--color-month); color: #fff;
-            
-            font-family: 'Cormorant Garamond', serif; 
-            font-weight: 700; 
-            font-size: 1.1em; 
-            
+            font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.1em; 
             letter-spacing: 2px; border-radius: 50px; display: table;
             text-transform: uppercase; box-shadow: 0 3px 6px rgba(93, 64, 55, 0.15);
         }
 
         .card { 
-            background: white; border-radius: 14px; 
-            padding: 10px 14px; 
-            margin-bottom: 12px; 
-            box-shadow: 0 3px 6px rgba(0,0,0,0.02); 
-            border: 2px dashed var(--card-border); 
-            position: relative; transition: all 0.3s ease;
+            background: white; border-radius: 14px; padding: 10px 14px; 
+            margin-bottom: 12px; box-shadow: 0 3px 6px rgba(0,0,0,0.02); 
+            border: 2px dashed var(--card-border); position: relative; transition: all 0.3s ease;
         }
-
         .card.today-highlight { border: 3px solid #8d6e63; background: #fffdfc; }
         
         .card-header { margin-bottom: 5px; border-bottom: 1px solid #f1f1f1; padding-bottom: 5px; }
         
         .date-badge { 
             background: var(--date-bg); color: #546e7a; 
-            padding: 2px 10px; border-radius: 12px; 
-            font-size: 0.9em; font-weight: 600; display: inline-block;
+            padding: 2px 10px; border-radius: 12px; font-size: 0.9em; font-weight: 600; 
+            display: inline-block;
         }
-        .weekday-span { font-weight: normal; margin-left: 6px; color: #8d6e63; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;}
+        .weekday-span { 
+            font-weight: normal; margin-left: 6px; color: #8d6e63; 
+            font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;
+        }
         
         .scripture-row { 
-            display: flex; align-items: center; 
-            padding: 4px 6px; 
-            cursor: pointer; border-radius: 6px; 
-            margin-bottom: 2px; 
+            display: flex; align-items: center; padding: 4px 6px; 
+            cursor: pointer; border-radius: 6px; margin-bottom: 2px; 
             transition: all 0.2s; background: #fafafa; border: 1px solid transparent;
             min-height: 28px; 
         }
         .scripture-row:active { transform: scale(0.99); }
-
+        .scripture-row.done { background-color: var(--item-checked-bg); border-color: var(--item-checked-border); }
+        
         .tag { 
-            font-family: 'Klee One', sans-serif;
-            font-size: 0.75em; padding: 1px 0; border-radius: 4px; 
-            margin-right: 8px; font-weight: bold; flex-shrink: 0; min-width: 38px; text-align: center;
-            transition: opacity 0.3s;
+            font-family: 'Klee One', sans-serif; font-size: 0.75em; padding: 1px 0; 
+            border-radius: 4px; margin-right: 8px; font-weight: bold; flex-shrink: 0; 
+            min-width: 38px; text-align: center;
         }
         .tag.ot { background-color: var(--color-ot); color: white; }
         .tag.psalm { background-color: var(--color-psalm-bg); color: var(--color-psalm-text); }
@@ -217,49 +161,28 @@
         .tag.rest { background-color: var(--color-rest); color: white; width: auto; padding: 1px 5px; }
 
         .scripture-text { 
-            font-size: 0.95em; 
-            font-weight: 600; 
-            color: #4e342e; flex-grow: 1; transition: color 0.2s;
+            font-size: 0.95em; font-weight: 600; color: #4e342e; flex-grow: 1; 
             line-height: 1.4;
         }
+        .scripture-row.done .scripture-text { color: #5d4037; opacity: 1; }
+        .scripture-row.hide-tag .tag { display: none; }
 
         .check-box {
-            width: 20px; height: 20px; 
-            border: 2px solid #d7ccc8; border-radius: 50%;
+            width: 20px; height: 20px; border: 2px solid #d7ccc8; border-radius: 50%;
             margin-left: 8px; display: flex; align-items: center; justify-content: center;
-            color: #fbc02d; 
-            transition: all 0.3s; background: white; 
-            font-size: 14px; 
-            line-height: 1;
+            color: #fbc02d; background: white; font-size: 14px; 
         }
-        
-        .scripture-row.done { 
-            background-color: var(--item-checked-bg); 
-            border-color: var(--item-checked-border); 
-        }
-        .scripture-row.done .scripture-text { 
-            color: #5d4037; 
-            font-weight: 600; 
-            opacity: 1; 
-            text-decoration: none; 
-        }
-        .scripture-row.hide-tag .tag { display: none; }
-        
-        /* 🆕 打勾後：暖陽黃底色 + 白色圖樣 */
         .scripture-row.done .check-box { 
-            background: var(--checkbox-solid-bg); 
-            border-color: var(--checkbox-solid-bg); 
-            color: white; 
-            box-shadow: 0 2px 6px rgba(255, 210, 48, 0.4); 
+            background: var(--checkbox-solid-bg); border-color: var(--checkbox-solid-bg); 
+            color: white; box-shadow: 0 2px 6px rgba(255, 210, 48, 0.4); 
         }
         
         .note-section {
             margin-top: 5px; background: var(--color-note); color: #795548;
-            padding: 5px 8px; border-radius: 6px; font-size: 0.9em; display: flex; align-items: flex-start;
-            line-height: 1.5;
+            padding: 5px 8px; border-radius: 6px; font-size: 0.9em; 
+            display: flex; align-items: flex-start; line-height: 1.5;
         }
         .note-icon { margin-right: 4px; }
-
         #status { text-align: center; padding: 30px; color: #bcaaa4; }
     </style>
 </head>
@@ -268,9 +191,12 @@
 <header>
     <div class="header-content">
         <div class="header-left">
-            <div class="main-title">2026 BIBLE PROJECT</div>
+            <div class="main-title">BIBLE PROJECT</div>
             <span class="signature">Nancy Hsu</span>
-            <div class="subtitle">“Come near to God and he will come near to you.” — James 4:8</div>
+            <div class="date-picker-area">
+                <label>Start:</label>
+                <input type="date" id="start-date-input" value="2026-01-29">
+            </div>
         </div>
 
         <div class="progress-compact">
@@ -284,84 +210,92 @@
 </header>
 
 <div class="container">
-    <div id="status">正在載入您的讀經手帳...</div>
+    <div id="status">正在讀取進度...</div>
     <div id="content"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
 <script>
-    // ★★★ 您的新連結已經更新在這裡 ★★★
+    // 您的 Google Sheet CSV 連結
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRUQy1IowgZj0KhOTJ4bbpQjcqzUmRMVLKdK3jqJ995LM4PQE3ddkxT63PaLIMjCLuCRyf4cfWbWL9L/pub?output=csv';
 
-    let savedChecks = JSON.parse(localStorage.getItem('bible_checks_v3')) || [];
-    const now = new Date();
-    const todayShort = `${now.getMonth() + 1}/${now.getDate()}`; 
-    const todayFull = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
-
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let savedChecks = JSON.parse(localStorage.getItem('bible_checks_v4_full')) || [];
     
-    /* 🆕 只保留指定的四種符號：星、芒、愛心、十字架 */
+    // 讀取使用者設定的開始日期，預設 2026-01-29
+    let startDateStr = localStorage.getItem('bible_start_date') || '2026-01-29';
+    document.getElementById('start-date-input').value = startDateStr;
+
+    // 日期變更監聽
+    document.getElementById('start-date-input').addEventListener('change', (e) => {
+        startDateStr = e.target.value;
+        localStorage.setItem('bible_start_date', startDateStr);
+        // 重新渲染
+        contentDiv.innerHTML = '';
+        renderList(globalData); 
+        updateStats();
+    });
+
+    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     const icons = ['★', '✦', '♥', '†'];
 
     const contentDiv = document.getElementById('content');
     let totalItems = 0;
+    let globalData = []; // 暫存資料以便重繪
 
     Papa.parse(sheetURL, {
         download: true, header: true, skipEmptyLines: true,
         complete: function(results) {
             document.getElementById('status').style.display = 'none';
             if (results.data && results.data.length > 0) {
-                renderList(results.data);
+                globalData = results.data;
+                renderList(globalData);
                 updateStats(); 
+            } else {
+                document.getElementById('status').innerText = "無法讀取資料，請檢查 Google Sheet 連結";
+                document.getElementById('status').style.display = 'block';
             }
         }
     });
 
-    function getIconForDate(dateStr) {
-        let hash = 0;
-        for (let i = 0; i < dateStr.length; i++) {
-            hash = dateStr.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        const index = Math.abs(hash) % icons.length;
-        return icons[index];
+    function getIconForIndex(idx) {
+        return icons[idx % icons.length];
     }
 
     function renderList(data) {
-        let lastMonth = '';
+        let lastMonth = -1;
         let todayAnchorId = ''; 
         totalItems = 0; 
+        
+        // 今天的日期物件 (用來比對 Highlight)
+        const now = new Date();
+        now.setHours(0,0,0,0);
+
+        // 計算起始日期物件
+        const startDateObj = new Date(startDateStr);
+        startDateObj.setHours(0,0,0,0);
 
         data.forEach((row, index) => {
-            const dateStr = row['Date'] ? row['Date'].trim() : '';
-            if (!dateStr) return;
+            // 讀取 CSV 的 Day 欄位 (例如 "Day 1")
+            const dayLabel = row['Day'] ? row['Day'].trim() : '';
+            if (!dayLabel) return; // 如果這行沒有 Day 就跳過
 
-            let currentMonthNum = '';
-            let displayDate = dateStr;
-            let fullDateObj = null;
+            // 解析第幾天 (從 "Day 1" 拿出 1)
+            let dayOffset = 0;
+            const match = dayLabel.match(/(\d+)/);
+            if(match) dayOffset = parseInt(match[1]) - 1;
 
-            if (dateStr.includes('/')) {
-                const parts = dateStr.split('/');
-                if(parts.length === 3) {
-                    fullDateObj = new Date(dateStr);
-                    currentMonthNum = parseInt(parts[1]);
-                    displayDate = `${parts[1]}/${parts[2]}`;
-                } else if(parts.length === 2) {
-                    fullDateObj = new Date(`${now.getFullYear()}/${dateStr}`);
-                    currentMonthNum = parseInt(parts[0]);
-                    displayDate = dateStr;
-                }
-            }
+            // 計算這行的實際日期
+            const currentRowDate = new Date(startDateObj);
+            currentRowDate.setDate(startDateObj.getDate() + dayOffset);
 
-            let weekdayStr = '';
-            if (fullDateObj && !isNaN(fullDateObj)) {
-                weekdayStr = fullDateObj.toLocaleDateString('en-US', { weekday: 'short' });
-            } else if (row['Day']) {
-                weekdayStr = row['Day'];
-            }
+            const currentMonthNum = currentRowDate.getMonth(); // 0-11
+            const displayDate = `${currentRowDate.getMonth() + 1}/${currentRowDate.getDate()}`;
+            const weekdayStr = currentRowDate.toLocaleDateString('en-US', { weekday: 'short' });
 
-            if (currentMonthNum && currentMonthNum !== lastMonth) {
-                const engMonth = monthNames[currentMonthNum - 1] || currentMonthNum;
+            // 檢查是否換月
+            if (currentMonthNum !== lastMonth) {
+                const engMonth = monthNames[currentMonthNum];
                 const monthTitle = document.createElement('div');
                 monthTitle.className = 'month-header';
                 monthTitle.innerText = `${engMonth}`; 
@@ -369,8 +303,10 @@
                 lastMonth = currentMonthNum;
             }
 
-            const isToday = dateStr.includes(todayShort) || dateStr === todayFull;
+            // 檢查是否是今天
+            const isToday = currentRowDate.getTime() === now.getTime();
             
+            // 讀取經文欄位
             let ot = row['OT'] || '';
             let psalm = row['Psalm/Proverbs'] || '';
             let nt = row['NT'] || '';
@@ -396,33 +332,36 @@
                 todayAnchorId = 'target-today';
             }
 
-            const dailyIcon = getIconForDate(dateStr);
+            // 圖示
+            const dailyIcon = getIconForIndex(dayOffset);
 
             let html = `
                 <div class="card-header">
                     <div class="date-badge">
                         ${displayDate} <span class="weekday-span">${weekdayStr}</span>
+                        <span style="font-size:0.8em; opacity:0.6; margin-left:5px;">(${dayLabel})</span>
                     </div>
                 </div>
             `;
 
+            // 唯一識別 ID 使用 DayLabel (例如 Day 1_ot)，這樣改日期也不會掉進度
+            const safeDayLabel = dayLabel.replace(/\s/g, ''); 
+
             if (isRestDay) {
-                const id = `${dateStr}_rest`;
+                const id = `${safeDayLabel}_rest`;
                 const isDone = savedChecks.includes(id);
                 const restText = allContent || "本日休息 / 補進度";
                 html += createRowHtml(id, isDone, 'rest', '☕ 調整', restText, dailyIcon);
             } else {
-                if(ot) html += createRowHtml(`${dateStr}_ot`, savedChecks.includes(`${dateStr}_ot`), 'ot', '舊約', ot, dailyIcon);
+                if(ot) html += createRowHtml(`${safeDayLabel}_ot`, savedChecks.includes(`${safeDayLabel}_ot`), 'ot', '舊約', ot, dailyIcon);
                
                 if(psalm) {
                     let label = '詩篇';
-                    if(psalm.includes('箴') || psalm.includes('Proverbs')) {
-                        label = '箴言';
-                    }
-                    html += createRowHtml(`${dateStr}_psalm`, savedChecks.includes(`${dateStr}_psalm`), 'psalm', label, psalm, dailyIcon);
+                    if(psalm.includes('箴') || psalm.includes('Proverbs')) label = '箴言';
+                    html += createRowHtml(`${safeDayLabel}_psalm`, savedChecks.includes(`${safeDayLabel}_psalm`), 'psalm', label, psalm, dailyIcon);
                 }
 
-                if(nt) html += createRowHtml(`${dateStr}_nt`, savedChecks.includes(`${dateStr}_nt`), 'nt', '新約', nt, dailyIcon);
+                if(nt) html += createRowHtml(`${safeDayLabel}_nt`, savedChecks.includes(`${safeDayLabel}_nt`), 'nt', '新約', nt, dailyIcon);
             }
 
             if(notes) {
@@ -434,6 +373,7 @@
             checkCardCompletion(card);
         });
 
+        // 自動捲動到今天
         if (todayAnchorId) {
             setTimeout(() => {
                 const element = document.getElementById(todayAnchorId);
@@ -476,7 +416,7 @@
             element.classList.add('done');
             checkbox.innerText = iconChar; 
         }
-        localStorage.setItem('bible_checks_v3', JSON.stringify(savedChecks));
+        localStorage.setItem('bible_checks_v4_full', JSON.stringify(savedChecks));
         updateStats();
 
         const card = element.closest('.card');
