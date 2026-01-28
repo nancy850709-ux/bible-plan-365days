@@ -71,8 +71,10 @@
         }
         
         .sub-title-cn {
-            display: block; font-size: 0.75em; font-weight: 500; 
+            display: block; font-size: 0.75em; font-weight: 600; 
             margin-top: 4px; color: #8d6e63; letter-spacing: 1px;
+            /* ★★★ 強制指定與卡片相同的字體 ★★★ */
+            font-family: 'Klee One', 'Noto Sans TC', sans-serif;
         }
 
         /* 經文副標題樣式 */
@@ -198,6 +200,34 @@
         .note-icon { margin-right: 4px; }
         #status { text-align: center; padding: 30px; color: #bcaaa4; }
         .error-msg { color: #e57373; font-size: 0.9em; margin-top: 10px; }
+
+        /* === 🆕 頁尾慶祝樣式 === */
+        .footer-finish {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            opacity: 0; /* 預設隱藏，讀取完後顯示 */
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 1.5s; /* 稍微延遲出現 */
+        }
+        .finish-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d7ccc8, transparent);
+            width: 70%;
+            margin: 0 auto 25px auto;
+        }
+        .finish-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #5d4037;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -234,26 +264,27 @@
         <small>如果很久沒反應，請確認 Google Sheet 已執行最新程式碼</small>
     </div>
     <div id="content"></div>
+    
+    <div class="footer-finish" id="footer-area" style="display:none;">
+        <div class="finish-line"></div>
+        <div class="finish-text">Finish ! 🎉</div>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 
 <script>
-    // 您的 Google Sheet CSV 連結 (請確保這個連結是有效的)
+    // 您的 Google Sheet CSV 連結
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRUQy1IowgZj0KhOTJ4bbpQjcqzUmRMVLKdK3jqJ995LM4PQE3ddkxT63PaLIMjCLuCRyf4cfWbWL9L/pub?output=csv';
 
-    // 使用者進度儲存
     let savedChecks = JSON.parse(localStorage.getItem('bible_checks_v5_paced')) || [];
     
-    // 讀取使用者設定的開始日期，預設 2026-01-29
     let startDateStr = localStorage.getItem('bible_start_date') || '2026-01-29';
     document.getElementById('start-date-input').value = startDateStr;
 
-    // 日期變更監聽
     document.getElementById('start-date-input').addEventListener('change', (e) => {
         startDateStr = e.target.value;
         localStorage.setItem('bible_start_date', startDateStr);
-        // 重新渲染
         contentDiv.innerHTML = '';
         if(globalData.length > 0) {
             renderList(globalData); 
@@ -266,6 +297,8 @@
 
     const contentDiv = document.getElementById('content');
     const statusDiv = document.getElementById('status');
+    const footerArea = document.getElementById('footer-area');
+
     let totalItems = 0;
     let globalData = []; 
 
@@ -273,14 +306,9 @@
         download: true, header: true, skipEmptyLines: true,
         complete: function(results) {
             if (results.data && results.data.length > 0) {
-                // 檢查是否讀取到正確的欄位
                 const firstRow = results.data[0];
                 if (!firstRow.hasOwnProperty('Day') && !firstRow.hasOwnProperty('OT')) {
-                    statusDiv.innerHTML = `
-                        讀取失敗：欄位名稱不符。<br>
-                        請確認 Google Sheet 第一行標題是否為：<br>
-                        <strong>Day, OT, Psalm/Proverbs, NT, Notes</strong>
-                    `;
+                    statusDiv.innerHTML = `讀取失敗：欄位名稱不符。<br>請確認 Google Sheet 第一行標題是否為：Day, OT, Psalm/Proverbs, NT, Notes`;
                     statusDiv.classList.add('error-msg');
                     return;
                 }
@@ -289,6 +317,10 @@
                 globalData = results.data;
                 renderList(globalData);
                 updateStats(); 
+                
+                // 資料載入完成後顯示頁尾
+                footerArea.style.display = 'block';
+
             } else {
                 statusDiv.innerText = "無法讀取資料，請檢查 Google Sheet 連結是否正確發布";
                 statusDiv.classList.add('error-msg');
@@ -319,7 +351,6 @@
             const dayLabel = row['Day'] ? row['Day'].trim() : '';
             if (!dayLabel) return; 
 
-            // 解析 Day 數字
             let dayOffset = 0;
             const match = dayLabel.match(/(\d+)/);
             if(match) dayOffset = parseInt(match[1]) - 1;
@@ -340,7 +371,6 @@
                 lastMonth = currentMonthNum;
             }
 
-            // 寬鬆判定今天
             const isToday = currentRowDate.getFullYear() === now.getFullYear() &&
                             currentRowDate.getMonth() === now.getMonth() &&
                             currentRowDate.getDate() === now.getDate();
